@@ -17,13 +17,22 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   /*
+   ** Customize the router
+   */
+  router: {
+    middleware: ['auth']
+  },
+  /*
    ** Customize the progress-bar color
    */
   loading: { color: '#fff' },
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    //'@brown-ccv/disco-styles',
+    './node_modules/@brown-ccv/disco-styles/css/disco.css'
+  ],
   /*
    ** Plugins to load before mounting the App
    */
@@ -39,6 +48,8 @@ export default {
    ** Nuxt.js modules
    */
   modules: [
+    // Doc: https://auth.nuxtjs.org/usage
+    '@nuxtjs/auth',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios'
   ],
@@ -55,5 +66,28 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  /*
+   ** Auth module configuration
+   ** See https://auth.nuxtjs.org/api/options.html
+   */
+  auth: {
+    redirect: {
+      logout: '/login'
+    },
+    strategies: {
+      shib: {
+        _scheme: 'oauth2',
+        authorization_endpoint: 'https://datasci.brown.edu/keycloak/auth/realms/ccv-shib/protocol/openid-connect/auth',
+        access_token_endpoint: 'https://datasci.brown.edu/keycloak/auth/realms/ccv-shib/protocol/openid-connect/token',
+        userinfo_endpoint: 'https://datasci.brown.edu/keycloak/auth/realms/ccv-shib/protocol/openid-connect/userinfo',
+        scope: ['openid', 'profile', 'email'],
+        grant_type: 'authorization_code',
+        response_type: 'code',
+        token_type: 'Bearer',
+        client_id: 'xnat-portal',
+        token_key: 'access_token',
+      }
+    }
   }
 }
