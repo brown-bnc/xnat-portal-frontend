@@ -1,6 +1,13 @@
 <template>
-  <DButton v-if="!loggedIn" name="Log in" variant="success" @click="login" />
-  <DButton v-else name="Log out" variant="success" @click="logout" />
+  <div>
+    <DButton
+      v-if="!$auth.loggedIn"
+      name="Log in"
+      variant="success"
+      @click="login"
+    />
+    <DButton v-else name="Log out" variant="success" @click="logout" />
+  </div>
 </template>
 
 <script>
@@ -11,13 +18,19 @@ export default {
     DButton
   },
   data: () => ({
-    loggedIn: false
+    token: {}
   }),
+  mounted() {
+    if (localStorage) {
+      this.token = localStorage.getItem('auth._token.shib')
+    }
+  },
   methods: {
     async login() {
       try {
-        await this.$auth.login()
+        await this.$auth.loginWith('shib')
         this.formError = null
+        this.loggedIn = true
       } catch (e) {
         this.formError = e.message
       }

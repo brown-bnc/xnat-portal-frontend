@@ -1,4 +1,5 @@
 export default {
+  components: true,
   mode: 'spa',
   /*
    ** Headers of the page
@@ -31,7 +32,7 @@ export default {
    */
   css: [
     //'@brown-ccv/disco-styles',
-    './node_modules/@brown-ccv/disco-styles/css/disco.css'
+    './node_modules/@brown-ccv/disco-styles/scss/disco.scss'
   ],
   /*
    ** Plugins to load before mounting the App
@@ -41,6 +42,7 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: [
+    '@nuxtjs/vuetify',
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module'
   ],
@@ -57,7 +59,15 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'http://localhost:4000',
+    headers: {
+      common: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    },
+  },
   /*
    ** Build configuration
    */
@@ -87,7 +97,9 @@ export default {
         token_type: 'Bearer',
         client_id: 'xnat-portal',
         token_key: 'access_token',
-      }
+      },
+      tokenRequired: false,
+      tokenType: false
     }
   }
 }

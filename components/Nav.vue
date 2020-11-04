@@ -2,11 +2,11 @@
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="https://www.brown.edu">
-        BrownLogo
+        <BrownLogo />
       </a>
 
       <a class="navbar-item" href="https://ccv.brown.edu">
-        CCVLogo
+        <CCVLogo />
       </a>
 
       <a
@@ -25,12 +25,16 @@
     </div>
 
     <div id="navMenu" class="navbar-menu" :class="{ 'is-active': isActive }">
-      <div class="navbar-start">
-        <a class="navbar-item" href="https://bnc.brown.edu/xnat">XNAT</a>
-        <a class="navbar-item" href="https://bnc.brown.edu">Documentation</a>
-      </div>
 
       <div class="navbar-end">
+        <a class="navbar-item" href="https://bnc.brown.edu/xnat"
+          >XNAT
+          <DIcon name="external-link-alt" family="light" class="ml-2" />
+        </a>
+        <a class="navbar-item" href="https://bnc.brown.edu"
+          >Documentation
+          <DIcon name="external-link-alt" family="light" class="ml-2"
+        /></a>
         <div class="navbar-item">
           <Login />
         </div>
@@ -40,11 +44,15 @@
 </template>
 
 <script>
+import { BrownLogo, CCVLogo, DIcon } from '@brown-ccv/disco-vue-components'
 import Login from '~/components/Login.vue'
 
 export default {
   components: {
-    Login
+    Login,
+    BrownLogo,
+    CCVLogo,
+    DIcon
   },
   data: () => ({
     isActive: false

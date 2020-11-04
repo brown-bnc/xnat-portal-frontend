@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Nav />
     <nuxt />
   </div>
 </template>
@@ -53,3 +54,13 @@ html {
   background-color: #35495e;
 }
 </style>
+
+<script>
+import Nav from '~/components/Nav.vue'
+
+export default {
+  components: {
+    Nav
+  }
+}
+</script>
