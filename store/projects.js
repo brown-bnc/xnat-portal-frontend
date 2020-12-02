@@ -8,14 +8,15 @@ export const mutations = {
 };
 export const actions = {
   async fetchData({ commit }, route) {
-    let projects = {}
+    let projects
+    this.$axios.setHeader('Authorization', localStorage.getItem('auth._token.shib'))
+    this.$axios.setHeader('Content-Type', 'application/json')
     try{
-      this.$axios.setHeader('Authorization', localStorage.getItem('auth._token.shib'))
-      this.$axios.setHeader('Content-Type', 'application/x-www-form-urlencoded')
       projects = await this.$axios.$get(route);
+      console.log(projects)
     }
     catch(err){
-      console.log(err)
+      // console.log(err.response.data.json())
     }
     commit('SET_DATA', { projects });
   },

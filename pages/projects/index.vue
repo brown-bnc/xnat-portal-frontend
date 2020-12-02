@@ -1,9 +1,6 @@
 <template>
   <section>
     Select Projects
-    <p>
-      {{ data }}
-    </p>
 
     <v-app>
       <v-combobox
